@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Navigation menu</title>
+	<style>
+		img{
+			display: none;
+		}
+		@media screen and (max-width: 800px) {
+			ul {
+				display: none;
+			}
+			img {
+				display: initial;
+			}
+		}
+	</style>
+</head>
+<body>
+<div id="menu">
+	<img id="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/1200px-Hamburger_icon.svg.png" width="50px">
+</div>
+	<script>
+		const json = [
+            {
+                "title": "Home",
+                "url" : "/"
+            },
+            {
+                "title" : "Producten",
+                "url" : "/producten/"
+            },
+            {
+                "title": "Over ons",
+                "url" : "/overons/"
+            },
+            {
+                "title": "Contact",
+                "url" : "/contact/"
+            }
+        ];
+
+
+		const Createmenu = function(json) {
+		    this.json = json;
+		    this.create = () => {
+                const ul = document.createElement('ul');
+                for (let i = 0; i < json.length; i++){
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    const title = document.createTextNode(json[i].title);
+                    const att = document.createAttribute('href');
+                    att.value = json[i].url;
+                    a.setAttributeNode(att);
+                    a.appendChild(title);
+                    li.appendChild(a);
+                    ul.appendChild(li);
+                }
+                //menu.appendChild(ul);
+                document.getElementById('img').addEventListener('click', () => {
+                    const ul = document.getElementsByTagName('ul')[0];
+					((ul.style.display === 'block') ? ul.style.display = 'none' : ul.style.display = 'block');
+                });
+                return ul;
+			};
+        };
+
+		const crmenu = new Createmenu(json);
+		const ul = crmenu.create();
+        const menu = document.getElementById('menu');
+		menu.appendChild(ul);
+	</script>
+</body>
+</html>
